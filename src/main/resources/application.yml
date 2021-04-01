@@ -6,11 +6,16 @@ spring:
     #   url:jdbc:mysql://58.87.85.198/lianxi?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
     password: root
+  redis:
+    database: 1
+    host: 127.0.0.1
+    port: 6379
+    password:
+
 
 
 mybatis:
   mapperLocations: classpath:mapper/*.xml
   #config-location: classpath:mybatis-config.xml
   typeAliasesPackage: com.ali.springboot_mybatis.pojo
-
 

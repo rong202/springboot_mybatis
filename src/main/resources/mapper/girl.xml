@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ali.springboot_mybatis.controller.Idao">
+    <select id="list" resultType="com.ali.springboot_mybatis.pojo.Girl">
+        select * from girl;
+    </select>
+    <select id="findById" parameterType="com.ali.springboot_mybatis.pojo.Girl"
+            resultType="com.ali.springboot_mybatis.pojo.Girl">
+        select * from girl where id=#{id};
+    </select>
+    <insert id="add" parameterType="com.ali.springboot_mybatis.pojo.Girl" useGeneratedKeys="true">
+        insert into girl(name,age) values(#{name},#{age})
+    </insert>
+    <insert id="add1" parameterType="com.ali.springboot_mybatis.ov.RequestVo" useGeneratedKeys="true">
+        insert into girl(name,age) values(#{name},#{age})
+    </insert>
+    <delete id="del" parameterType="com.ali.springboot_mybatis.pojo.Girl">
+        delete from girl where id=#{id}
+    </delete>
+    <delete id="pdel" parameterType="object">
+        delete from girl where id =#{id}
+    </delete>
+    <delete id="pdel1" parameterType="java.util.List">
+        delete from girl where id in
+        <foreach collection="list" item="girl" open="(" separator="," close=")">
+            #{girl.id}
+        </foreach>
+    </delete>
+    <insert id="padd" parameterType="java.util.List" useGeneratedKeys="true">
+        insert into girl(name,age) values
+        <foreach collection="list" item="girl" index="index" separator=",">
+            (#{girl.name},#{girl.age})
+        </foreach>
+    </insert>
+    <select id="findBy" parameterType="com.ali.springboot_mybatis.pojo.Girl"
+            resultType="com.ali.springboot_mybatis.pojo.Girl">
+        select * from girl where name=#{name} ;
+    </select>
+</mapper>

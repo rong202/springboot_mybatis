@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <meta charset="utf-8">
+    <title>订单号查询</title>
+    <link rel="stylesheet" href="bootstrap-table-source/css/bootstrap.css">
+    <link rel="stylesheet" href="bootstrap-table-source/css/bootstrap-table.css">
+    <link rel="stylesheet" href="bootstrap-table-source/fonts/glyphicons-halflings-regular.woff2">
+    <link rel="stylesheet" href="bootstrap-table-source/fonts/glyphicons-halflings-regular.woff">
+
+
+    <script src="bootstrap-table-source/jquery-3.0.0.js"></script>
+    <script src="bootstrap-table-source/js/bootstrap.js"></script>
+    <script src="bootstrap-table-source/js/bootstrap-table.js"></script>
+    <script src="bootstrap-table-source/js/bootstrap-table-zh-CN.js"></script>
+
+
+    <script>
+        $(function () {
+
+            //1.初始化Table
+            var oTable = new TableInit();
+            oTable.Init();
+
+            //2.初始化Button的点击事件
+            var oButtonInit = new ButtonInit();
+            oButtonInit.Init();
+
+
+        });
+
+
+        var TableInit = function () {
+            var oTableInit = new Object();
+            //初始化Table
+            oTableInit.Init = function () {
+                $('#tb_departments').bootstrapTable({
+                    url: '/trade/trade',         //请求后台的URL（*）
+                    method: 'post',                      //请求方式（*）
+                    toolbar: '#toolbar',                //工具按钮用哪个容器
+                    striped: true,                      //是否显示行间隔色
+                    cache: true,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                    pagination: true,                   //是否显示分页（*）
+                    sortable: false,                     //是否启用排序
+                    sortOrder: "asc",                   //排序方式
+                    queryParams: oTableInit.queryParams,//传递参数（*）
+                    sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+                    pageNumber: 1,                       //初始化加载第一页，默认第一页
+                    pageSize: 10,                       //每页的记录行数（*）
+                    pageList: [10],                     //可供选择的每页的行数（*）
+                    search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+                    strictSearch: true,
+                    showColumns: true,                  //是否显示所有的列
+                    showRefresh: true,                  //是否显示刷新按钮
+                    minimumCountColumns: 2,             //最少允许的列数
+                    clickToSelect: false,                //是否启用点击选中行
+                    height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                    uniqueId: "tradeNo",                     //每一行的唯一标识，一般为主键列
+                    showToggle: true,                    //是否显示详细视图和列表视图的切换按钮
+                    cardView: false,                    //是否显示详细视图
+                    detailView: false,                   //是否显示父子表
+                    columns: [{
+                        field: 'tradeNo',
+                        title: '订单号'
+                    }, {
+                        field: 'name',
+                        title: '用户姓名'
+                    }, {
+                        field: 'receiveTime',
+                        title: '订单接收时间'
+                    }, {
+                        field: 'hospitalName',
+                        title: '医院名称'
+                    }, {
+                        field: 'phone',
+                        title: '手机号'
+                    }, {
+                        field: 'idCard',
+                        title: '用户身份证号'
+                    }, {
+                        field: 'bsType',
+                        title: '业务类型'
+                    }, {
+                        field: 'deptCode',
+                        title: '订单科室编码'
+                    }, {
+                        field: 'doctorCode',
+                        title: '订单医生编码'
+                    }, {
+                        field: 'totalAmount',
+                        title: '订单金额'
+                    }, {
+                        field: 'receiptAmount',
+                        title: '实收金额'
+                    }, {
+                        field: 'payAmount',
+                        title: '实付金额'
+                    }, {
+                        field: 'timeStart',
+                        title: '交易起始时间号',
+                    }, {
+                        field: 'timeEnd',
+                        title: '支付完时间号'
+                    }, {
+                        field: 'resultText',
+                        title: '结果说明'
+                    }, {
+                        field: 'refundTime',
+                        title: '退费时间'
+                    }, {
+                        field: 'refundAmount',
+                        title: '退款金额'
+                    }, {
+                        field: 'refundDesc',
+                        title: '退款原因'
+                    }], responseHandler: function (res) {
+                        // debugger
+                        $("#invite_count").html(res.count);//count  后端返回的非total、rows数据
+                        $("#invite_month").html(res.month);
+                        return {                            //return bootstrap-table能处理的数据格式
+                            "total": res.total,
+                            "rows": res.tradeRecords
+                        }
+                    }
+                });
+            };
+
+            //得到查询的参数
+            oTableInit.queryParams = function (params) {
+                var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                    limit: params.limit,   //页面大小
+                    offset: params.offset,  //页码
+                    /*  departmentname: $("#txt_search_departmentname").val(),*/
+                    outTradeNo: $("#txt_search_outTradeNo").val(),
+                    name: $("#txt_search_name").val(),
+                    phone: $("#txt_search_phone").val(),
+                    hospitalCode: $("#txt_search_hospitalCode").val(),
+                    startTime: $("#txt_search_startTime").val(),
+                    endTime: $("#txt_search_endTime").val()
+
+                    /*startTime:"2020-4-27 10:00:00",
+                    endTime:"2020-4-27 11:00:00"*/
+                    /*  name:$("#txt_search_name").val(),
+                      phone:$("#txt_search_phone").val(),
+                       hospitalCode:$("#txt_search_hospitalCode").val()*/
+                    // outTradeNo: $("#txt_search_outTradeNo").val()
+
+                };
+                return temp;
+            };
+            return oTableInit;
+        };
+        /*
+        function parseTime(time){
+            if(time){
+                var date = new Date(time);
+                return  date.getFullYear()+"-"+(1+date.getMonth())+"-"+(date.getDay()+5)+
+                    " "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()
+            }else{
+                return "-";
+            }
+        }
+        */
+
+
+        var ButtonInit = function () {
+            var oInit = new Object();
+            var postdata = {};
+
+            oInit.Init = function () {
+                $("#btn_query").click(function () {
+                    $("#tb_departments").bootstrapTable('refresh');
+                });
+                $("#btn_reset").click(function () {
+                    $("#txt_search_name").val('');
+                    $("#txt_search_phone").val('');
+                    $("#txt_search_outTradeNo").val('');
+                    $("#txt_search_hospitalCode").val('');
+                    $("#txt_search_startTime").val('');
+                    $("#txt_search_endTime").val('');
+                });
+            };
+            return oInit;
+        };
+    </script>
+</head>
+<body>
+<div class="panel-body" style="padding-bottom:0px;">
+    <div class="panel panel-default">
+        <div class="panel-heading">查询条件</div>
+        <div class="panel-body">
+            <form id="formSearch" class="form-horizontal">
+                <div class="form-group" style="margin-top:15px">
+                    <label class="control-label col-sm-1" for="txt_search_name">患者姓名</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="txt_search_name">
+                    </div>
+                    <label class="control-label col-sm-1" for="txt_search_phone">手机号</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="txt_search_phone">
+                    </div>
+                    <label class="control-label col-sm-1" for="txt_search_outTradeNo">院内流水号</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="txt_search_outTradeNo">
+                    </div>
+                    <label class="control-label col-sm-1" for="txt_search_hospitalCode">医院号</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="txt_search_hospitalCode">
+                    </div>
+                    <label class="control-label col-sm-1" for="txt_search_startTime">开始时间</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="txt_search_startTime"
+                               placeholder="时间日期格式 : yyyy-MM-dd HH:mm:ss">
+                    </div>
+                    <label class="control-label col-sm-1" for="txt_search_endTime">结束时间</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="txt_search_endTime"
+                               placeholder="时间日期格式 : yyyy-MM-dd HH:mm:ss">
+                    </div>
+                    <div class="col-sm-1" style="width: 300px;">
+                        <input type="button" id="btn_reset" value="重置" class="btn btn-primary">
+                        <input type="button" id="btn_query" value="查询" class="btn btn-primary">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <table id="tb_departments"></table>
+</div>
+</body>
+</html>

@@ -2,6 +2,7 @@ package com.ali.springboot_mybatis.controller;
 
 import com.ali.springboot_mybatis.ov.RequestVo;
 import com.ali.springboot_mybatis.pojo.Girl;
+import com.ali.springboot_mybatis.service.ChouXiang;
 import com.ali.springboot_mybatis.service.Iservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,12 +20,16 @@ public class Controller {
     Idao idao;
     @Autowired
     Iservice iservice;
+    private String key;
 
     @RequestMapping("findAll")
     public Map<String, Object> findAll() {
+        ChouXiang chouXiang = new ChouXiang();
         HashMap<String, Object> hashMap = new HashMap<>();
         List<Girl> list = iservice.list();
-        hashMap.put("a", list);
+        key = "a";
+        hashMap.put(key, list);
+        System.out.println(hashMap);
         return hashMap;
     }
 
