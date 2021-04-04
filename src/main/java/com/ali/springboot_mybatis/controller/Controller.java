@@ -23,6 +23,10 @@ public class Controller {
     Iservice iservice;
     private String key;
 
+    /**
+     *
+     * @return
+     */
     @RequestMapping("findAll")
     public Map<String, Object> findAll() {
         ChouXiang chouXiang = new ChouXiang();
