@@ -1,7 +1,11 @@
 package com.ali.springboot_mybatis.service;
 
 import com.ali.springboot_mybatis.controller.Idao;
+import com.ali.springboot_mybatis.modle.PageResult;
+import com.ali.springboot_mybatis.ov.RequestVo;
 import com.ali.springboot_mybatis.pojo.Girl;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,7 +57,27 @@ public class ServiceImpl implements Iservice {
     }
 
     @Override
-    public Girl findBy(String name, String birthday) {
-        return idao.findBy(name, birthday);
+    public List<Girl> findBy(String name, int age) {
+        return idao.findBy(name, age);
+    }
+
+    @Override
+    public List<Girl> findBy1(RequestVo requestVo) {
+        return idao.findBy1(requestVo);
+    }
+
+    @Override
+    public List<Girl> findBy2(RequestVo requestVo) {
+        return idao.findBy2(requestVo);
+    }
+
+    @Override
+    public PageResult<List<Girl>> listPage(Girl girl) {
+        PageHelper.startPage(girl.getPage(), girl.getRows());
+        System.out.println("++++++++++++"+girl.getPage()+ girl.getRows());
+        List<Girl> allPaging = idao.findAll1(girl);
+        PageInfo<Girl> of = PageInfo.of(allPaging);
+
+        return new PageResult<>(of.getTotal(), of.getList());
     }
 }

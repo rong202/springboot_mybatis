@@ -25,7 +25,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
             RedisTemplate template = new RedisTemplate<>();
 
             template.setConnectionFactory(factory);
-
+            //设置key value hashkey hashvalue 序列化方式
             template.setKeySerializer(new StringRedisSerializer());
 
             template.setValueSerializer(new GenericJackson2JsonRedisSerializer());

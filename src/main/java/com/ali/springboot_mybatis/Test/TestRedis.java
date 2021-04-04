@@ -40,5 +40,6 @@ public  void aVoid(){
       System.out.println("终于不空指针了");
       redisTemplate.opsForValue().set(key,value,3, TimeUnit.HOURS);
       redisTemplate.boundSetOps("nameset").add("曹操");
-    }
+      System.out.println("redisTemplate的hashcode:"+redisTemplate.hashCode());
+}
 }

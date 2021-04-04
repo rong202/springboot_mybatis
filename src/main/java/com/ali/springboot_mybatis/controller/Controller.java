@@ -1,14 +1,15 @@
 package com.ali.springboot_mybatis.controller;
 
+import com.ali.springboot_mybatis.ZiDingYiExcetion;
+import com.ali.springboot_mybatis.modle.PageResult;
 import com.ali.springboot_mybatis.ov.RequestVo;
 import com.ali.springboot_mybatis.pojo.Girl;
 import com.ali.springboot_mybatis.service.ChouXiang;
 import com.ali.springboot_mybatis.service.Iservice;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +34,11 @@ public class Controller {
         return hashMap;
     }
 
+    @GetMapping("findAll1")
+    public PageResult<List<Girl>> findAll1(Girl girl) {
+        PageResult<List<Girl>> listPageResult = iservice.listPage(girl);
+        return listPageResult;
+    }
     @RequestMapping("add")
     public String add(String name, Integer age) {
         iservice.add(name, age);
@@ -61,19 +67,56 @@ public class Controller {
         return "删除成功";
     }
 
+    /**
+     * 只传入一个 id ,不是json对象
+     * @param id
+     * @return
+     */
     @RequestMapping("findById")
-    public Girl findById(int id) {
+    public Girl findById(Integer id) {
+        System.out.println(id);
         Girl girl = iservice.findById(id);
         return girl;
     }
 
     @RequestMapping("findBy")
     @ResponseBody
-    public Girl findBy(@RequestBody RequestVo requestVo) {
-        String name = requestVo.getName();
-        String birthday = requestVo.getBirthday();
-        Girl girl = iservice.findBy(name, birthday);
+    public List<Girl> findBy(@RequestBody RequestVo requestVo) throws Exception {
+            String name = requestVo.getName();
+            System.out.println(name);
+            Integer age = requestVo.getAge();
+            if (!name.isEmpty() && age !=null){
+                List<Girl> girl = iservice.findBy(name,age);
+                return girl;
+            }
+
+            ZiDingYiExcetion ziDingYiExcetion = new ZiDingYiExcetion();
+            ziDingYiExcetion.setCode("0");
+            ziDingYiExcetion.setMessage("缺少参数");
+            throw ziDingYiExcetion;
+
+        /**
+         * null
+         */
+
+
+    }
+
+    @RequestMapping("findBy1")
+    @ResponseBody
+    public List<Girl> findBy1(@RequestBody RequestVo requestVo) {
+        System.out.println(requestVo.getName());
+        List<Girl> girl = iservice.findBy1(requestVo);
+            return girl;
+
+    }
+    @RequestMapping("findBy2")
+    @ResponseBody
+    public List<Girl> findBy2(@RequestBody RequestVo requestVo) {
+        System.out.println(requestVo.getName());
+        List<Girl> girl = iservice.findBy2(requestVo);
         return girl;
+
     }
 
     @RequestMapping("pdel")

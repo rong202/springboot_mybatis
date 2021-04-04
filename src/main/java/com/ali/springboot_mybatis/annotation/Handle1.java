@@ -12,7 +12,5 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target(TYPE)
 @Component
 public @interface Handle1 {
-    String name();
 
-    String code();
 }

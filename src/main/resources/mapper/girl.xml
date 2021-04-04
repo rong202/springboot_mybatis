@@ -4,7 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ali.springboot_mybatis.controller.Idao">
     <select id="list" resultType="com.ali.springboot_mybatis.pojo.Girl">
-        select * from girl;
+        select * from girl
+        order by
+        <include refid="girlOrderBy"></include>;
     </select>
     <select id="findById" parameterType="com.ali.springboot_mybatis.pojo.Girl"
             resultType="com.ali.springboot_mybatis.pojo.Girl">
@@ -34,8 +36,60 @@
             (#{girl.name},#{girl.age})
         </foreach>
     </insert>
+    <sql id="baseGirl">
+        id,name,age,birthday
+    </sql>
+
+
     <select id="findBy" parameterType="com.ali.springboot_mybatis.pojo.Girl"
             resultType="com.ali.springboot_mybatis.pojo.Girl">
-        select * from girl where name=#{name} ;
+        select
+        <include refid="baseGirl"></include>
+        from girl
+        where 1=1
+        <if test="name !=null and name!= ''" >
+            and name = #{name}
+        </if>
+        <if test="age !=null and age!= ''" >
+            and age = #{age}
+        </if>
+
+    </select>
+    <sql id="girlCondition">
+        <if test="requestVo.name != null" >
+            and name = #{requestVo.name}
+        </if>
+        <if test="requestVo.age != null" >
+            and age = #{requestVo.age}
+        </if>
+    </sql>
+    <sql id="girlOrderBy">
+        <if test="requestVo.name != null" >
+            name
+        </if>
+        <if test="requestVo.age != null" >
+            age
+        </if>
+    </sql>
+    <select id="findBy1" resultType="com.ali.springboot_mybatis.pojo.Girl" parameterType="com.ali.springboot_mybatis.ov.RequestVo">
+        select
+        <include refid="baseGirl"></include>
+        from girl
+        where 1=1
+        <include refid="girlCondition"></include>
+            order by
+            <include refid="girlOrderBy"></include>
+    </select>
+    <select id="findBy2" resultType="com.ali.springboot_mybatis.pojo.Girl" parameterType="com.ali.springboot_mybatis.ov.RequestVo">
+        select
+        <include refid="baseGirl"></include>
+        from girl
+        order by ${requestVo.birthday} ${requestVo.name}
+    </select>
+
+    <select id="findAll1" resultType="com.ali.springboot_mybatis.pojo.Girl" parameterType="com.ali.springboot_mybatis.ov.RequestVo">
+        select
+        <include refid="baseGirl"></include>
+        from girl
     </select>
 </mapper>

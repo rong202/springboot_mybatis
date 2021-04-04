@@ -1,7 +1,9 @@
 package com.ali.springboot_mybatis.controller;
 
+import com.ali.springboot_mybatis.ov.RequestVo;
 import com.ali.springboot_mybatis.pojo.Girl;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -23,5 +25,11 @@ public interface Idao {
 
     int pdel1(List list);
 
-    Girl findBy(String name, String birthday);
+    List<Girl> findBy(String name, int age);
+
+    List<Girl> findBy1(@Param("requestVo")RequestVo requestVo);
+
+    List<Girl> findBy2(@Param("requestVo")RequestVo requestVo);
+
+    List<Girl> findAll1(Girl girl);
 }
