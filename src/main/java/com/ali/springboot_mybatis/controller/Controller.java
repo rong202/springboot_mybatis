@@ -30,6 +30,12 @@ public class Controller {
      *
      * @return
      */
+
+    @RequestMapping("haha")
+    public String a(){
+        System.out.println("a");
+        return "wangjiakong is tiancai";
+    }
     @RequestMapping("findAll")
     public Map<String, Object> findAll() {
         ChouXiang chouXiang = new ChouXiang();
