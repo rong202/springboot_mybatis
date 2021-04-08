@@ -15,6 +15,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 这是一个分支
+ */
 @RestController
 public class Controller {
     @Autowired
@@ -27,6 +30,12 @@ public class Controller {
      *
      * @return
      */
+
+    @RequestMapping("haha")
+    public String a(){
+        System.out.println("a");
+        return "wangjiakong is tiancai";
+    }
     @RequestMapping("findAll")
     public Map<String, Object> findAll() {
         ChouXiang chouXiang = new ChouXiang();

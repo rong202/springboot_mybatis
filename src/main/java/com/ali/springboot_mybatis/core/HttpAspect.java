@@ -1,8 +1,6 @@
 package com.ali.springboot_mybatis.core;
 
-import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
@@ -11,9 +9,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
-import java.util.Date;
+import java.util.logging.Logger;
 
-@Slf4j
 @Aspect
 @Component
 public class HttpAspect {
@@ -40,19 +37,19 @@ public class HttpAspect {
 
 
         //url
-        log.info("url={}", request.getRequestURI());
+        //Logger.getLogger("url={}", request.getRequestURI());
 
         //method
-        log.info("method={}", request.getMethod());
+      //  Logger.getLogger("method={}", request.getMethod());
 
-        //ip
-        log.info("ip={}", request.getRemoteAddr());
+      //  //ip
+      // Logger.getLogger("ip={}", request.getRemoteAddr());
 
         //method
-        log.info("class_method={}", joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
+       // Logger.getLogger("class_method={}", joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
 
         //param
-        log.info("args={}", joinPoint.getArgs());
+       // Logger.getLogger("args={}", joinPoint.getArgs().toString());
     }
 
     @After("log()")
@@ -83,8 +80,4 @@ public class HttpAspect {
         sysLogBean.setUsername(SaasUtil.getTenantId());*/
     }
 
-    @AfterReturning(returning="obj", pointcut = "log()")
-    public void doAfterReturnig(Object obj){
-        log.info("reponse={}", obj);
-    }
 }
