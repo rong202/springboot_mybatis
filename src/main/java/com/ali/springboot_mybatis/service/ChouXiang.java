@@ -1,6 +1,5 @@
 package com.ali.springboot_mybatis.service;
 
-import lombok.Data;
 
 /**
  * 重命名文件、方法、属性等（Rename）：Shift+F6，同时被修改处在其他被调用的地方也会随之更改，修改文件名，如类名，右键当前类文件 -> Refactor -> Rename，便会看到快捷键提示 Shift+F6
@@ -55,10 +54,25 @@ public  class ChouXiang {
             System.out.println(i);
         }
     }
-    @Data
     public static class XiaoMing{
         private String name;
         private int age;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getAge() {
+            return age;
+        }
+
+        public void setAge(int age) {
+            this.age = age;
+        }
 
         public XiaoMing(int age){
             this.age = age;

@@ -4,9 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ali.springboot_mybatis.controller.Idao">
     <select id="list" resultType="com.ali.springboot_mybatis.pojo.Girl">
-        select * from girl
-        order by
-        <include refid="girlOrderBy"></include>;
+        select * from girl;
     </select>
     <select id="findById" parameterType="com.ali.springboot_mybatis.pojo.Girl"
             resultType="com.ali.springboot_mybatis.pojo.Girl">

@@ -1,6 +1,5 @@
 package com.ali.springboot_mybatis;
 
-import lombok.Data;
 
 public class Test {
     @org.junit.Test
@@ -14,13 +13,28 @@ public class Test {
             break;
         }
     }
-    @Data
     public static class XiaoMing{
         private String name;
         private int age;
 
         public XiaoMing(String name){
             this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getAge() {
+            return age;
+        }
+
+        public void setAge(int age) {
+            this.age = age;
         }
     }
 

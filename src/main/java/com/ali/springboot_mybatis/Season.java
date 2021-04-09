@@ -1,11 +1,5 @@
 package com.ali.springboot_mybatis;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@AllArgsConstructor
-@NoArgsConstructor
 public enum Season {
     // 定义四个枚举实例
     SPRING(1,"春"),SUMMER(2,"夏"),AUTUMN(3,"秋"),WINTER(4,"冬");
@@ -13,7 +7,11 @@ public enum Season {
     private  int id;
     private  String name;
 
- /*   public int getId(){
+    Season(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+/*   public int getId(){
         return id;
     }
     public String getName(){
