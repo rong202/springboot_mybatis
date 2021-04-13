@@ -32,4 +32,6 @@ public interface Idao {
     List<Girl> findBy2(@Param("requestVo")RequestVo requestVo);
 
     List<Girl> findAll1(Girl girl);
+
+    List<Girl> like(String str);
 }

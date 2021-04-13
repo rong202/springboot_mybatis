@@ -34,7 +34,8 @@ public class Controller {
     @RequestMapping("haha")
     public String a(){
         System.out.println("a");
-        return "wangjiakong is tiancai";
+        return "wangjiakong is " +
+                "tiancai";
     }
     @RequestMapping("findAll")
     public Map<String, Object> findAll() {
@@ -150,5 +151,12 @@ public class Controller {
         System.out.println(list.toString());
         iservice.pdel1(list);
         return "批量删除成功";
+    }
+
+    @RequestMapping("like")
+    public List<Girl> like(String str) {
+        System.out.println(str);
+        List<Girl> like = iservice.like(str);
+        return like;
     }
 }

@@ -90,4 +90,13 @@
         <include refid="baseGirl"></include>
         from girl
     </select>
+
+    <select id="like" resultType="com.ali.springboot_mybatis.pojo.Girl">
+        select
+        *
+        from girl
+<where>
+    name like concat('%',#{str},'%') or alias like concat('%',#{str},'%') or pinyin like concat('%',#{str},'%')
+</where>
+    </select>
 </mapper>
