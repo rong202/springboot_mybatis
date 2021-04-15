@@ -1,9 +1,7 @@
-package com.ali.springboot_mybatis.Test;
+package com.ali.springboot_mybatis.test;
 
 
 import com.ali.springboot_mybatis.SpringbootMybatisApplication;
-import com.ali.springboot_mybatis.service.RedisTest;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
 
 
@@ -41,5 +38,17 @@ public  void aVoid(){
       redisTemplate.opsForValue().set(key,value,3, TimeUnit.HOURS);
       redisTemplate.boundSetOps("nameset").add("曹操");
       System.out.println("redisTemplate的hashcode:"+redisTemplate.hashCode());
+}
+@Test
+    public void c(){
+    //user_1299273129651998721_web_3fc949429b3c4ca7bb33143ba42fd85c_690215379682721792
+    String token = "user_1299273129651998721_web_3fc949429b3c4ca7bb33143ba42fd85c_690215379682721792";
+    int idx = token.lastIndexOf("_");
+    String key = token.substring(0, idx);
+    int lastIdx = key.lastIndexOf("_");
+    String lastKey = key.substring(0, lastIdx);
+    System.out.println(lastKey);
+    //user_1299273129651998721_web
+    //String value = redisTemplate.opsForValue().get(lastKey);
 }
 }

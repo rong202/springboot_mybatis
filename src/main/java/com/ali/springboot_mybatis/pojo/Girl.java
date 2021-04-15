@@ -16,4 +16,8 @@ public class Girl extends Page {
     private String name;
     private Integer age;
     private String birthday;
+
+    public Girl(String name){
+        this.name = name;
+    }
 }

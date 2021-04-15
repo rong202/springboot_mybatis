@@ -1,7 +1,7 @@
-package com.ali.springboot_mybatis;
+/*
+package com.ali.springboot_mybatis.test;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
@@ -13,13 +13,15 @@ public enum Season {
     private  int id;
     private  String name;
 
- /*   public int getId(){
+ */
+/*   public int getId(){
         return id;
     }
     public String getName(){
         return name;
     }
-*/
+*//*
+
 
 
     public static void main(String[] args) {
@@ -29,3 +31,4 @@ public enum Season {
         System.out.println(Season.WINTER.name);
     }
 }
+*/

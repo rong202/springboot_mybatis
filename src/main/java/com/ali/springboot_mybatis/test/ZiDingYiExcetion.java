@@ -1,4 +1,5 @@
-package com.ali.springboot_mybatis;
+/*
+package com.ali.springboot_mybatis.Test;
 
 import lombok.Data;
 
@@ -7,3 +8,4 @@ public class ZiDingYiExcetion extends Exception{
     private String code;
     private String message;
 }
+*/

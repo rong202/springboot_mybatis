@@ -92,4 +92,13 @@
         <include refid="baseGirl"></include>
         from girl
     </select>
+
+    <select id="like" resultType="com.ali.springboot_mybatis.pojo.Girl" parameterType="string">
+        select
+        <include refid="baseGirl"></include>
+        from girl
+        <where>
+            name like %#{str}% or age like %#{age}% or id like %#{id}%
+        </where>
+    </select>
 </mapper>

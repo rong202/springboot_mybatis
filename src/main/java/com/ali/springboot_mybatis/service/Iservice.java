@@ -27,4 +27,6 @@ public interface Iservice {
     List<Girl> findBy2(RequestVo requestVo);
 
     PageResult<List<Girl>> listPage(Girl girl);
+
+    List<Girl> like(String str);
 }

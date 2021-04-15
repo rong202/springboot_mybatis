@@ -1,20 +1,16 @@
 package com.ali.springboot_mybatis.controller;
 
-import com.ali.springboot_mybatis.ZiDingYiExcetion;
 import com.ali.springboot_mybatis.modle.PageResult;
 import com.ali.springboot_mybatis.ov.RequestVo;
 import com.ali.springboot_mybatis.pojo.Girl;
 import com.ali.springboot_mybatis.service.ChouXiang;
 import com.ali.springboot_mybatis.service.Iservice;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 @RestController
 public class Controller {
     @Autowired
@@ -29,7 +25,6 @@ public class Controller {
      */
     @RequestMapping("findAll")
     public Map<String, Object> findAll() {
-        ChouXiang chouXiang = new ChouXiang();
         HashMap<String, Object> hashMap = new HashMap<>();
         List<Girl> list = iservice.list();
         key = "a";
@@ -94,11 +89,7 @@ public class Controller {
                 return girl;
             }
 
-            ZiDingYiExcetion ziDingYiExcetion = new ZiDingYiExcetion();
-            ziDingYiExcetion.setCode("0");
-            ziDingYiExcetion.setMessage("缺少参数");
-            throw ziDingYiExcetion;
-
+return null;
         /**
          * null
          */
@@ -141,5 +132,12 @@ public class Controller {
         System.out.println(list.toString());
         iservice.pdel1(list);
         return "批量删除成功";
+    }
+
+    @RequestMapping("like")
+    public List<Girl> like(String str) {
+        System.out.println(str);
+        List<Girl> like = iservice.like(str);
+        return like;
     }
 }

@@ -12,11 +12,13 @@ spring:
     port: 6379
     password:
 
-
+#task扫描路径
+task:
+  prop:
+    scan-package: com.ali
 mybatis:
   mapperLocations: classpath:mapper/*.xml
   #config-location: classpath:mybatis-config.xml
   typeAliasesPackage: com.ali.springboot_mybatis.pojo
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-

@@ -80,4 +80,9 @@ public class ServiceImpl implements Iservice {
 
         return new PageResult<>(of.getTotal(), of.getList());
     }
+
+    @Override
+    public List<Girl> like(String str) {
+        return idao.like(str);
+    }
 }

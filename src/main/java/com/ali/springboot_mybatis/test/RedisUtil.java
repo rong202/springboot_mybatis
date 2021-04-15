@@ -1,4 +1,4 @@
-package com.ali.springboot_mybatis.Test;
+package com.ali.springboot_mybatis.test;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
